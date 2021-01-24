@@ -1,12 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, IntegerField, FloatField, SubmitField
-from wtforms.validators import DataRequired, Length
-from wtforms.widgets import TextArea, Select
+from wtforms import SelectField, TextField, SubmitField, TextAreaField, IntegerField, FloatField, StringField
+from wtforms.validators import Length, Required
 
+mismonedas =('EUR','BTC', 'ETH', 'XRP', 'LTC', 'BCH', 'BNB', 'USDT', 'EOS', 'BSV', 'XLM', 'ADA', 'TRX')
 
-class MovementForm(FlaskForm):
-    fecha = DateField('Fecha', validators=[DataRequired()])
-    concepto = StringField('Concepto', validators=[DataRequired(), Length(min=10, message="El concepto debe tener más de 10 caracteres")])
-    cantidad = FloatField('Cantidad', validators=[DataRequired()])
+class QuizForm(FlaskForm):
+        MonedaFrom = SelectField('From', choices= mismonedas, validators=[Required()] )
+        CantidadFrom = FloatField('CantidadFrom', validators=[Required()])
+        MonedaTo = SelectField('To', choices= mismonedas, validators=[Required()] )
+        CantidadTo = FloatField('CantidadTo', validators=[Required()])
 
-    submit = SubmitField('Aceptar')
+        Calculadora = SubmitField('Calculadora')
+        Aceptar = SubmitField('Aceptar')
+
