@@ -2,52 +2,68 @@
 
 {% block title %} List {% endblock %}
 
-{%block breadcrumb%}
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Inicio</li>
-    <li class="breadcrumb-item"><a href="compra">Compra</a></li>
-    <li class="breadcrumb-item"><a href="status">Status</a></li>
-    </ol>
+{%block navbar%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">MY CRYPTO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">Index</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="compra">Purchase</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="status">Status</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
+
 {%endblock%}
 
 {% block formato %}
-    <h1>MOVIMIENTOS</h1>
-    {% if datos|length > 0 %}
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Fecha</th>
-                <th scope="col">Hora</th>
-                <th scope="col">From</th>
-                <th scope="col">Q</th>
-                <th scope="col">To</th>
-                <th scope="col">Q</th>
-                <th scope="col">P.U.</th>
-            </tr>
-            </thead>
-            {% for registro in datos %}
-                <tbody>
-                <tr>
-                    <td>{{registro['date']}}</td>
-                    <td>{{registro['time']}}</td>
-                    <td>{{registro['from_curency']}}</td>
-                    <td>{{"{:,.2f}".format(registro['from_cuantity'])}}</td>
-                    <td>{{registro['to_curency']}}</td>
-                    <td>{{"{:,.2f}".format(registro['to_quantity'])}}</td>
-                    <td>{{"{:,.2f}".format(registro['preciounitario'])}}</td>
-                </tr>
-                </tbody>
-            {% endfor %}
-        </table>
+<h1>MOVMENTS</h1>
+{% if datos|length > 0 %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">From</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">To</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">P.U.</th>
+        </tr>
+    </thead>
+    {% for registro in datos %}
+    <tbody>
+        <tr>
+            <td>{{registro['date']}}</td>
+            <td>{{registro['time']}}</td>
+            <td>{{registro['from_curency']}}</td>
+            <td>{{"{:,.2f}".format(registro['from_cuantity'])}}</td>
+            <td>{{registro['to_curency']}}</td>
+            <td>{{"{:,.2f}".format(registro['to_quantity'])}}</td>
+            <td>{{"{:,.2f}".format(registro['preciounitario'])}}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
 
-    {% else %}
-        <p>SIN MOVIMIENTOS</p>
-        
-    {% endif %}
+{% else %}
+<p>SIN MOVIMIENTOS</p>
 
-    <a href="status" class="btn btn-primary" role="button">Status</a>
-    <a href="compra" class="btn btn-primary" role="button">+</a>
+{% endif %}
 
-{%  endblock %}
+<a href="status" class="btn btn-primary" role="button">Status</a>
+<a href="compra" class="btn btn-primary" role="button">+</a>
+
+{% endblock %}

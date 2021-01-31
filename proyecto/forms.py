@@ -12,9 +12,9 @@ class ReusableForm(Form):
         minimo = 0
         maximo = 1e6
         MonedaFrom = SelectField('From:', validators=[Required()] )
-        CantidadFrom = FloatField('Cantidad From:', validators=[Required(), NumberRange(minimo,maximo,"saldo insuficiente") ])
+        CantidadFrom = FloatField('Quantity:', validators=[Required(), NumberRange(minimo,maximo,"Insufficient balance") ])
         MonedaTo = SelectField('To:', choices= mismonedas, validators=[Required()] )
-        CantidadTo = FloatField('Cantidad To:', validators=[])
+        CantidadTo = FloatField('Quantity:', validators=[])
         precioUnitario = FloatField('P.U.:', validators=[])
 
         Calculadora = SubmitField('Calculadora')

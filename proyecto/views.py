@@ -91,12 +91,12 @@ def compra():
             if form.MonedaFrom.data == form.MonedaTo.data:
                 validCoin=False
                 validTo = False
-                flash('Las monedas son iguales.')
+                flash('The coins cannot be the same')
 
             if form.MonedaFrom.data != 'BTC' and form.MonedaTo.data == 'EUR':
                 validCoin = False
                 validTo = True
-                flash('Solo puedes convertir a EUR desde BTC')
+                flash('You can only convert to EUR from BTC')
 
             if  form.MonedaFrom.data != "EUR" and (form.CantidadFrom.data > dicMonedas[form.MonedaFrom.data]):
                 flash("Insufficient credit, please correct amount of coins to sell")
@@ -141,7 +141,7 @@ def compra():
             else:
                 print(form.MonedaFrom)
                 flash(form.CantidadFrom.errors)
-                flash('Error:hofdhfd')
+                
     else:
         print(wallet)
         return render_template("purchase.html", form=form, wallet=wallet)
@@ -160,4 +160,4 @@ def status():
     print(dicMonedas)
     inversion= sum(dicMonedas.values())
     print(inversion)
-    return render_template("status.html", inversion=round(inversion,2))   
+    return render_template("status.html", inversion=round(inversion,2), eurosinvertidos=-round(dicMonedas['EUR']))   
