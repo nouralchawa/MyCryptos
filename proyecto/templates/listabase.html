@@ -2,6 +2,16 @@
 
 {% block title %} List {% endblock %}
 
+{%block breadcrumb%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Inicio</li>
+    <li class="breadcrumb-item"><a href="compra">Compra</a></li>
+    <li class="breadcrumb-item"><a href="status">Status</a></li>
+    </ol>
+</nav>
+{%endblock%}
+
 {% block formato %}
     <h1>MOVIMIENTOS</h1>
     {% if datos|length > 0 %}
@@ -20,13 +30,13 @@
             {% for registro in datos %}
                 <tbody>
                 <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>g</td>
-                    <td>d</td>
-                    <td>s</td>
-                    <td>q</td>
+                    <td>{{registro['date']}}</td>
+                    <td>{{registro['time']}}</td>
+                    <td>{{registro['from_curency']}}</td>
+                    <td>{{"{:,.2f}".format(registro['from_cuantity'])}}</td>
+                    <td>{{registro['to_curency']}}</td>
+                    <td>{{"{:,.2f}".format(registro['to_quantity'])}}</td>
+                    <td>{{"{:,.2f}".format(registro['preciounitario'])}}</td>
                 </tr>
                 </tbody>
             {% endfor %}
@@ -37,7 +47,7 @@
         
     {% endif %}
 
-    <a href="#" class="btn btn-primary" role="button">Status</a>
+    <a href="status" class="btn btn-primary" role="button">Status</a>
     <a href="compra" class="btn btn-primary" role="button">+</a>
 
 {%  endblock %}

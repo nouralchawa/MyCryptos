@@ -1,40 +1,43 @@
 from requests import Request, Session
 from requests.exceptions import ConnectionError , Timeout , TooManyRedirects 
 import json
+import requests
 
-url_price = 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion'
-url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
 
-parameters= {
-    'symbol':'BTC',
-    'amount':'1',
-    'convert': 'EUR'
-}
 
-headers = {
-    'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': 'ff4f88a1-8c9f-4888-8548-c841771b41a3',
-}
+def convert():
 
-session = Session()
-session.headers.update(headers)
+    CantidadTo= float(20)
+    MonedaFrom= 'EUR' 
+    MonedaTo='ETH' 
+    API_KEY= 'ff4f88a1-8c9f-4888-8548-c841771b41a3'
+    url = 'https://pro-api.coinmarketcap.com/v1/tools/price-conversion?amount={}&symbol={}&convert={}&CMC_PRO_API_KEY={}'.format(CantidadTo, MonedaFrom, MonedaTo, API_KEY)
+    
+    '''
+    respuesta = requests.get(url)
+    dato = respuesta.json()
 
-try:
-    response = session.get(url, params=parameters)
-    data = json.loads(response.text)
-    #print(data)
-except (ConnectionError, Timeout, TooManyRedirects) as e:
-    print(e)
+    if respuesta.status_code == 200:
+        dato = respuesta.json()
+    else:
+        print ("Se ha producido un error", respuesta.status)
+    
 
-convert = {
-    'symbol':'BTC',
-    'amount':'1',
-    'convert': 'EUR',
-}
+    precio = (dato['data']['quote']['EUR']['price'])
+    preciounitario = round(form.CantidadFrom.data/precio)
 
-try:
-    response = session.get(url_price,params=convert)
-    data_2 = json.loads(response.text)
-    print(data_2["data"]["quote"]["EUR"]["price"])
-except (ConnectionError, Timeout, TooManyRedirects) as e:
-    print(e)
+    print (precio)
+    print (preciounitario)
+    print (precio_u)
+    '''
+
+
+
+    try:
+        response = requests.get(url,params=convert)
+        data_2 = json.loads(response.text)
+        print(data_2["data"]["quote"]["EUR"]["price"])
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        print(e)
+
+convert()

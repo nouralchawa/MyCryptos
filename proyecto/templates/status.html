@@ -2,6 +2,29 @@
 
 {% block title %} Status {% endblock %}
 
+{%block breadcrumb%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="/">Inicio</a></li>
+    <li class="breadcrumb-item"><a href="compra">Compra</a></li>
+    <li class="breadcrumb-item" aria-current="page">Status</li>
+    </ol>
+</nav>
+{%endblock%}
+
 {% block formato %}
 
+<div class="row">
+    <div class="col-md-5">
+{%if inversion >= 0%}
+<div class="alert alert-success" role="alert">
+    {{ inversion }} €
+  </div>
+{%else%}
+<div class="alert alert-danger" role="alert">
+    {{ inversion }} €
+  </div>
+  {%endif%}
+    </div>
+</div>
 {%  endblock %}
