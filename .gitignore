@@ -4,3 +4,4 @@ config.py
 venv/
 query.sql
 sql_queries
+proyecto/data/dbfile.db
