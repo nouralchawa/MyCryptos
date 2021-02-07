@@ -19,14 +19,15 @@
 ```
 
 4. Crear variable de entorno, archivo **.env** con las siguientes variables:
-    FLASK_APP=run.py
-    FLASK_ENV=development
+
+    - FLASK_APP=run.py
+    - FLASK_ENV=development
 
 5. Crear un archivo **config.py** basado en config_template.py y reemplaza por las claves siguientes:
 
-Clave secreta CSRF= 'crea una clave'
-Ruta de la base de datos = 'proyecto/data/dbfile.db'
-Clave de la API= 'obtenten una clave en https://coinmarketcap.com/api/'
+    - Clave secreta CSRF= 'crea una clave'
+    - Ruta de la base de datos = 'proyecto/data/dbfile.db'
+    - Clave de la API= 'obtenten una clave en https://coinmarketcap.com/api/'
 
 
 
