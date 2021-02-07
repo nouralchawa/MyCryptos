@@ -34,6 +34,8 @@
 ### Finalmente arranca la aplicación
 
 
+#### Para acceder a la aplicacion en linea debes acceder a http://3.17.207.216/
+
 
 *Notas:*
 
