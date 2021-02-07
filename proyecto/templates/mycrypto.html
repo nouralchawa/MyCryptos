@@ -1,13 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY CRYPTO</title>
-</head>
-<body>
-    <h1>
-        WELCOME TO MY CRYPTO
-    </h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %} Start {% endblock %}
+{%block navbar%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="../static/img/icono2.png" alt="" width="30" height="30" class="d-inline-block align-top">MY CRYPTO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index">Movements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="compra">Purchase</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="status">Status</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{%endblock%}
+
+{% block formato %}
+<div class="row">
+    <div class="col-md-7">
+        <div class="container">
+            <div class="center-block">
+                <h1 class="shadow p-2 mb-5 bg-white rounded" class="text-body">
+                    WELCOME TO MY CRYPTO
+                </h1>
+                <div style="background-color: whitesmoke; padding: 20px; border-radius: 15px;">
+                    <p style="text-align: justify;">
+                        MY CRYPTO is an application which allows you to perform virtual investments in cryptocurrencies and see the evolution of your operations.
+                    </p>
+                    <p style="text-align: justify;">
+                        On Movements a list with all the transactions performed is provided and you will have the possibility of performing new ones.
+                    </p>
+                    <p style="text-align: justify;">
+                        Your global position can be checked at the Status page. Here you will be able to see the "Amount invested" and  the "Profit of
+                        investment" in euros if you were to withdraw all your criptocurrencies at the actual market price.
+                    </p>
+                    <br>
+                    <a href="index" class="btn btn-primary btn-lg btn-block p-10 mb-5 right" role="button"
+                        aria-pressed="true">GO!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

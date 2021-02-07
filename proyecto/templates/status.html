@@ -5,7 +5,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">MY CRYPTO</a>
+        <a class="navbar-brand" href="/">
+            <img src="../static/img/icono2.png" alt="" width="30" height="30" class="d-inline-block align-top">MY CRYPTO</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -13,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Index</a>
+                    <a class="nav-link" href="index">Movements</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="compra">Purchase</a>
@@ -30,19 +31,23 @@
 
 
 {% block formato %}
-<h1>CRYPTO BALANCE</h1>
 <div class="row">
     <div class="col-md-5">
-        <fieldset class="form-group border p-3">
+<h1 class="shadow p-2 mb-5 bg-white rounded" class="text-body">CRYPTO BALANCE</h1>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <fieldset class="form-group border p-3 rounded">
             
             <div>
                 <label for="name">Amount invested</label>
-                <div class="alert alert-primary" role="alert">
+                <div class="alert alert-light" role="alert">
                     {{ eurosinvertidos }} €
                 </div>
                 <label for="name">Profit of investment</label>
                 {%if inversion >= 0%}
-                <div class="alert alert-primary" role="alert">
+                <div class="alert alert-success" role="alert">
                     {{ inversion }} €
                 </div>
                 {%else%}
@@ -54,4 +59,5 @@
         </fieldset>
     </div>
 </div>
+
 {% endblock %}

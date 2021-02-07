@@ -1,19 +1,16 @@
-body {
-    background: transparent;
-    background-image: url(C:\Users\Nour\Desktop\KeepCoding-Botcamp\Proyecto\proyecto\static\img\fondo.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+.mifondo {
+    background-image: url("../img/bck4.jpg");
     background-size: cover;
-    background-color: #66999;
-    }
+    background-position: center;
+    background-repeat: no-repeat;
+  }
     
 .footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: rgb(0, 0, 0);
-    color: white;
+    background-color: rgb(233, 241, 243);
+    color: black;
     text-align: center;
     }
