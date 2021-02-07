@@ -1,24 +1,22 @@
-#MY CRYPTO
-Aplicacion de simulacion de compra/venta de criptomonedas.
+# MY CRYPTO
 
-Pasos a seguir para la instalación:
+    Aplicacion de simulacion de compra/venta de criptomonedas.
+
+    Pasos a seguir para la instalación:
 
 1. Crear entorno virtual (venv)
 
 2. Instalar las dependencias:
     ```pip install -r requirements.txt```
 
-3. Crear una base de datos con el nombre "transacciones":
-    CREATE TABLE "transacciones" (
-        "id"	INTEGER,
-        "date"	REAL,
-        "time"	TEXT,
-        "from_curency"	TEXT,
-        "from_cuantity"	REAL,
-        "to_curency"	INTEGER,
-        "to_quantity"	REAL,
-        PRIMARY KEY("id")
-    )
+3. Crear una base de datos:
+    Entra en las carpetas proyecto/data y en el terminal escribe los comandos:
+    ```
+    > sqlite3 basededatos.db
+    > .read migrations/initial.sql
+    > .schema
+    > .q
+    ```
 
 4. Crear variable de entorno, archivo **.env** con las siguientes variables:
     FLASK_APP=run.py
@@ -29,7 +27,11 @@ Clave secreta CSRF= 'crea una clave'
 Ruta de la base de datos = 'proyecto/data/dbfile.db'
 Clave de la API= 'obtenten una clave en https://coinmarketcap.com/api/'
 
-###Finalmente arranca la aplicación
+
+
+### Finalmente arranca la aplicación
+
+
 
 Notas: 
 Esta aplicacion esta diseñada para Windows. 

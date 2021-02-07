@@ -9,9 +9,6 @@ mismonedas =('EUR','BTC', 'ETH', 'XRP', 'LTC', 'BCH', 'BNB', 'USDT', 'EOS', 'BSV
 
 class ReusableForm(Form):
 
-        
-        #timeofOp = DateTimeField('Time of Operation',
-        #                      format='%Y-%m-%d %H:%M:%S')
         timeofOp = StringField("Time of Operation")
         MonedaFrom = SelectField('From:', validators=[Required()] )
         CantidadFrom = FloatField('Quantity:', validators=[Required() ])

@@ -29,7 +29,6 @@ def consulta(query, params=()):
     conn.commit()
 
     filas = c.fetchall()
-    print(filas)
 
     conn.close()
 
@@ -68,7 +67,6 @@ def listaMovimientos():
     for transaccion in ingresos:
         precio_u = (transaccion['from_cuantity'])/(transaccion['to_quantity'])
         preciounitario = Decimal(precio_u)
-        print(preciounitario)
         transaccion['preciounitario'] = float('{0:.2f}'.format(preciounitario))
 
     return render_template("listabase.html", datos = ingresos)
@@ -85,6 +83,7 @@ def compra():
                             UNION 
                             SELECT from_curency as moneda, totalTo, totalFrom from ((SELECT  from_curency, sum(from_cuantity) as totalFrom FROM transacciones GROUP BY from_curency) LEFT OUTER JOIN (SELECT  to_curency, sum(to_quantity) as totalTo FROM transacciones GROUP BY to_curency) ON from_curency = to_curency))""")
     except:
+        print('**ERROR**: Unable to connect to the Database')
         flash('Unable to connect to the Database. Try later')
         return render_template('purchase.html', form=form)
 
@@ -92,9 +91,7 @@ def compra():
     if "EUR" not in listamonedas:
         listamonedas.append("EUR")
     dicMonedas = {wallet[i]["moneda"]:wallet[i]["disponible"] for i in range(len(wallet))}
-    print(listamonedas)
     form.MonedaFrom.choices = sorted(listamonedas)
-    print(dicMonedas)
 
     if request.method == "POST":
         if 'Aceptar' not in request.form:
@@ -123,46 +120,29 @@ def compra():
             respuesta = requests.get(url)
             if respuesta.status_code ==200:
                 dato = respuesta.json()
-                print(dato)
                 precio = (dato['data']['quote'][form.MonedaFrom.data]['price'])
-                print(precio)
                 preciounitario = round(form.CantidadFrom.data/precio)
                 form.CantidadTo.raw_data =[round(form.CantidadFrom.data/precio,8)]
                 form.precioUnitario.raw_data = [round(precio,8)]
                 
-                print(form.CantidadTo.data)
-                print(precio)
                 form.MonedaFrom.default = form.MonedaFrom.data
-                print(form.MonedaFrom.default)
                 form.timeofOp.data = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                print("hol!a")
-                print(form.timeofOp.data)
                 form.MonedaFrom.choices = [form.MonedaFrom.data]
                 form.MonedaTo.choices = [form.MonedaTo.data]
                 return render_template("purchase.html", form=form, wallet=wallet, validAmount=validAmount, validCoin =validCoin, validTo=validTo, validation=True, correct=True, freeze=True)
             else:
+                print('**ERROR**: Unable to connect to coinmarketcap')
                 flash('Error Connecting to coinmarketcap. Try Later')
                 return render_template('purchase.html', form=form)
         else:
             
-            print("default")
-            print(form.MonedaFrom.default)
-            print("data")
-            print(form.MonedaFrom.data)
             currentTime = datetime.now()
-            print(currentTime)
             timeofOp= datetime.strptime(form.timeofOp.data,'%Y-%m-%d %H:%M:%S')
-            print(request.form)
-            print(form.timeofOp.data)
             difference = currentTime - timeofOp
-            print(difference)
             seconds_in_day = 24 * 60 * 60
             timeDifference = divmod(difference.days * seconds_in_day + difference.seconds, 60)
-            print(timeDifference[0])
-            print(form.validate())
             if timeDifference[0] < 1:
                 
-                print(form.MonedaFrom.data)
                 today = date.today()
                 fecha = today.strftime("%d/%m/%Y")
                 hour = datetime.now().time()
@@ -182,19 +162,16 @@ def compra():
                     return redirect(url_for('listaMovimientos'))
 
                 except:
-                    
+                    print('**ERROR**: Unable to connect to the Database')
                     flash('Unable to connect to the Database. Try later')
                     return render_template('purchase.html', form=form)
 
             else:
-                print(form.MonedaFrom)
-                #flash(form.CantidadFrom.errors)
                 if timeDifference[0] >= 1:
                     flash("Confirmation time expired: press calculator again and submit.")
                 return render_template('purchase.html', form=form)    
                 
     else:
-        print(wallet)
         return render_template("purchase.html", form=form, wallet=wallet)
     
 @app.route('/status',  methods=['GET', 'POST'])
@@ -209,24 +186,25 @@ def status():
                             UNION 
                             SELECT from_curency as moneda, totalTo, totalFrom from ((SELECT  from_curency, sum(from_cuantity) as totalFrom FROM transacciones GROUP BY from_curency) LEFT OUTER JOIN (SELECT  to_curency, sum(to_quantity) as totalTo FROM transacciones GROUP BY to_curency) ON from_curency = to_curency))""")
     except:
+        print('**ERROR**: Unable to connect to the Database')
         flash('Unable to connect to the Database. Try later')
         return render_template('error.html', form=form)
+
 
     divisas = "BTC,ETH,XRP,LTC,BCH,BNB,USDT,EOS,BSV,XLM,ADA,TRX"
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol={}&convert={}&CMC_PRO_API_KEY={}'.format(divisas, "EUR", API_KEY)
     respuesta = requests.get(url)
     if respuesta.status_code ==200:
         dato = respuesta.json()
-        print(dato['data']["BTC"]['quote']['EUR']['price'])
     
     
         dicMonedas = {wallet[i]["moneda"]:(dato['data'][wallet[i]["moneda"]]['quote']['EUR']['price'] if wallet[i]["moneda"]!="EUR" else 1)*wallet[i]["disponible"] for i in range(len(wallet))}
-    #dicMonedas = {wallet[i]["moneda"]:precioActual(wallet[i]["moneda"],wallet[i]["disponible"]) for i in range(len(wallet))}
-
-    #print(dicMonedas)
         inversion= sum(dicMonedas.values())
-    #print(inversion)
-        return render_template("status.html", inversion=round(inversion,2), eurosinvertidos=-round(dicMonedas['EUR']))   
+        if wallet:
+            return render_template("status.html", inversion=round(inversion,2), eurosinvertidos=-round(dicMonedas['EUR']))   
+        else:
+            return render_template("status.html", inversion=0, eurosinvertidos=0, sininversion=True)
     else:
-        flash('Unable to connect to the coinmarket. Try later')
+        print('**ERROR**: Unable to connect to coinmarketcap')
+        flash('Error Connecting to coinmarketcap. Try Later')
         return render_template('error.html', form=form)
